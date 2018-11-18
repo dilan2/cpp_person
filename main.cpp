@@ -6,8 +6,6 @@
 #include <map>
 #include <vector>
 
-#define FILENAME "person.json"
-
 using namespace rapidjson;
 using namespace std;
 
