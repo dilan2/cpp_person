@@ -11,7 +11,10 @@
 using namespace rapidjson;
 using namespace std;
 
-void saveToFiles(const map<string, vector<string>> *obj) {
+typedef map<string, vector<string>> FILES;
+typedef vector<Document*> DATA;
+
+void saveToFiles(const FILES *obj) {
   for (auto const &x : (*obj)) {
     ofstream outFile("../emails/" + x.first + ".txt");
     for (const auto &e : x.second)
@@ -19,7 +22,7 @@ void saveToFiles(const map<string, vector<string>> *obj) {
   }
 }
 
-void putFileDataInVector(const string path, vector<Document *> *data) {
+void putFileDataInVector(const string path, DATA *data) {
   std::ifstream file("../person.json");
 
   if (file.is_open()) {
@@ -34,9 +37,9 @@ void putFileDataInVector(const string path, vector<Document *> *data) {
   }
 }
 
-map<string, vector<string>> parseVectorToMap(const vector<Document *> *data) {
+FILES parseVectorToMap(const DATA *data) {
 
-  map<string, vector<string>> obj;
+  FILES obj;
   for (int i = 0; i < data->size(); i++) {
     Document *doc = (*data)[i];
     string currentConf = doc->FindMember("confName")->value.GetString();
@@ -52,10 +55,10 @@ map<string, vector<string>> parseVectorToMap(const vector<Document *> *data) {
 int main() {
   std::ifstream file("../person.json");
 
-  vector<Document *> data;
+  DATA data;
   putFileDataInVector("../person", &data);
 
-  map<string, vector<string>> obj = parseVectorToMap(&data);
+  FILES obj = parseVectorToMap(&data);
   saveToFiles(&obj);
 
   return 0;
