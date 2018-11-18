@@ -52,11 +52,11 @@ FILES parseVectorToMap(const DATA *data) {
   return obj;
 }
 
-int main() {
-  std::ifstream file("../person.json");
+int main(int argc, char *argv[]) {
+  string path = argv[1];
 
   DATA data;
-  putFileDataInVector("../person", &data);
+  putFileDataInVector(path, &data);
 
   FILES obj = parseVectorToMap(&data);
   saveToFiles(&obj);
