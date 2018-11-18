@@ -12,7 +12,7 @@ using namespace rapidjson;
 using namespace std;
 
 typedef map<string, vector<string>> FILES;
-typedef vector<Document*> DATA;
+typedef vector<Document *> DATA;
 
 void saveToFiles(const FILES *obj) {
   for (auto const &x : (*obj)) {
