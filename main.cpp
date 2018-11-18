@@ -36,7 +36,6 @@ void putFileDataInVector(const string path, DATA *data) {
 }
 
 FILES parseVectorToMap(const DATA *data) {
-
   FILES obj;
   for (int i = 0; i < data->size(); i++) {
     Document *doc = (*data)[i];
