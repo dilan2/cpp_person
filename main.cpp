@@ -2,6 +2,7 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
 #include <fstream>
+#include <future>
 #include <iostream>
 #include <map>
 #include <vector>
@@ -12,11 +13,15 @@ using namespace std;
 typedef map<string, vector<string>> FILES;
 typedef vector<Document *> DATA;
 
+void writeToFile(string first, vector<string> second) {
+  ofstream outFile("../emails/" + first + ".txt");
+  for (const auto &e : second)
+    outFile << e << "\n";
+}
+
 void saveToFiles(const FILES *obj) {
   for (auto const &x : (*obj)) {
-    ofstream outFile("../emails/" + x.first + ".txt");
-    for (const auto &e : x.second)
-      outFile << e << "\n";
+    std::async(std::launch::async, writeToFile, x.first, x.second);
   }
 }
 
